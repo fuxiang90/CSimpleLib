@@ -47,7 +47,8 @@ int main()
     */
 
     //testIntMapMain();
-    testSortMain();
+    testIntMapMain2();
+    //testSortMain();
 
     printf("Hello worl\n");
     return 0;

@@ -2,7 +2,7 @@
 #define CINTMAP_H_INCLUDED
 
 #include "CCommon.h"
-
+#include "Csort.h"
 typedef   int cint;
 
 typedef struct CIntMapData_t CIntMapData;
@@ -23,6 +23,9 @@ struct CIntMap_t
 
 CIntMap * CIntMapCreate(int len ,MallocDataFunc func);
 CIntMap * CIntMapInsert(CIntMap *  map_head,CIntMapData * intmap_node );
+CIntMap * CIntMapSort(CIntMap *  map_head, CompareDataFunc func ,SwapDataFunc swapfunc);
+CIntMapData * CIntMapFind(CIntMap *  map_head, cint key );
+
 
 void testIntMapMain();
 #endif // CINTMAP_H_INCLUDED
