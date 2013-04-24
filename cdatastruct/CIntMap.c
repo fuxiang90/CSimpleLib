@@ -62,7 +62,13 @@ CIntMapData * CIntMapFind(CIntMap *  map_head, cint key )
 
     return NULL;
 }
+void CIntMapRelease(CIntMap *  map_head )
+{
+    free(map_head->arr);
+    free(map_head);
 
+}
+//////////////////////////////////////////////////////////
 /*
     以key 值来排序
 */
@@ -141,8 +147,5 @@ void testIntMapMain2()
             printf("error ; %d not found \n",i);
         }
     }
-
-
-
 
 }

@@ -5,6 +5,7 @@
 #include "Carray.h"
 #include "CIntMap.h"
 #include "Csort.h"
+#include "CMat.h"
 struct tnode{
     int a;
 
@@ -47,8 +48,10 @@ int main()
     */
 
     //testIntMapMain();
-    testIntMapMain2();
+    //testIntMapMain2();
     //testSortMain();
+
+    testMat();
 
     printf("Hello worl\n");
     return 0;

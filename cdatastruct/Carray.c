@@ -7,8 +7,8 @@
 
 CIntArray *CIntArrayCreate(int len )
 {
+    //int *ty = ;
     CIntArray * array_node = (CIntArray *)malloc(sizeof(CIntArray));
-
     if(array_node == NULL){
         return NULL;
     }

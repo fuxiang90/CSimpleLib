@@ -25,7 +25,7 @@ CIntMap * CIntMapCreate(int len ,MallocDataFunc func);
 CIntMap * CIntMapInsert(CIntMap *  map_head,CIntMapData * intmap_node );
 CIntMap * CIntMapSort(CIntMap *  map_head, CompareDataFunc func ,SwapDataFunc swapfunc);
 CIntMapData * CIntMapFind(CIntMap *  map_head, cint key );
-
+void CIntMapRelease(CIntMap *  map_head );
 
 void testIntMapMain();
 #endif // CINTMAP_H_INCLUDED
