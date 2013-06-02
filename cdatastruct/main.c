@@ -51,8 +51,33 @@ int main()
     //testIntMapMain2();
     //testSortMain();
 
-    testMat();
+    //testMat();
+//    testHeapMain();
 
-    printf("Hello worl\n");
+
+
+    int size_a =  (128  +128 )*1024 ;
+    int size_b = 10 * 1024;
+    char * str = (char *) malloc(size_b);
+    //0804d000     140 rw--- 0000000000000000 000:00000   [ anon ]
+
+
+    int i ;
+    stpcpy(str,"hello");
+
+    free(str);
+    //0804d000     132 rw--- 0000000000000000 000:00000   [ anon ]
+
+
+
+    str = (char *)malloc(size_a);
+
+    free(str);
+
+    for( i = 0 ; i < 10 ; i ++){
+        str = (char *)malloc(size_b);
+    }
+
+    //testList();
     return 0;
 }

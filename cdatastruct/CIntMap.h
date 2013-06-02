@@ -3,6 +3,11 @@
 
 #include "CCommon.h"
 #include "Csort.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef   int cint;
 
 typedef struct CIntMapData_t CIntMapData;
@@ -28,4 +33,8 @@ CIntMapData * CIntMapFind(CIntMap *  map_head, cint key );
 void CIntMapRelease(CIntMap *  map_head );
 
 void testIntMapMain();
+
+#ifdef __cplusplus
+}
+#endif
 #endif // CINTMAP_H_INCLUDED

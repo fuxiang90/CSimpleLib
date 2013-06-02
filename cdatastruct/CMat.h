@@ -3,6 +3,9 @@
 
 
 #include "CCommon.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct CMat_t CMat;
 struct CMat_t {
@@ -18,5 +21,9 @@ void CMatRelease(CMat * l);
 ///
 
 void testMat();
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CMAT_H_INCLUDED

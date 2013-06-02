@@ -4,11 +4,24 @@
 #include <string.h>
 #include <stdio.h>
 
+struct value_t{
+
+    int data;
+    char *str;
+};
+
 static int  CSlistMatch(struct value_t * key_a ,struct value_t*  key_b )
 {
     if(key_a->data == key_b ->data &&  0==strcmp(key_a->str ,key_b->str))
         return 1;
     return 0;
+}
+static void  struct_free(void * ptr)
+{
+    struct value_t * n_ptr =  (struct value_t *)ptr;
+
+    free(n_ptr-> str);
+    free(n_ptr);
 }
 
 CSlist *CSlistCreate(void)
@@ -17,9 +30,11 @@ CSlist *CSlistCreate(void)
     if(l == NULL){
         return NULL;
     }
-    l->len = 0;
+
     l->head = NULL;
     l->tail = NULL;
+    l->len = 0;
+    l->free =NULL;
 
     return l;
 }
@@ -30,7 +45,17 @@ void CSlistRelease(CSlist * l)
     CSlistNode * next_node;
     while(list_node!= NULL ){
         next_node = list_node ->next;
-        free(list_node->value);
+        //free(list_node->value);// bug  //2013年6月1日
+
+        //free( ((struct value_t*)((*list_node).value) )->str );
+        //free(  (struct value_t*) (list_node->value) );
+
+        if(l->free){
+            l->free(list_node->value);
+        } else {
+            free(list_node->value);
+        }
+
         free(list_node);
         list_node = next_node;
     }
@@ -136,19 +161,31 @@ void CSlistPrint(CSlist * l)
 }
 
 
+
 ////
 
 void testList()
 {
-//    CSlist * l = CSlistCreate();
-//    struct value_t a[10];
-//    char *str = "hello";
-//    int i ;
-//    for(i = 0 ; i < 10;i++){
-//        a[i].str = (char *) malloc(sizeof(str)+ 1);
-//        strcpy(a[i].str ,str);
-//        a[i].data = i;
-//        l = CSlistAddNodeHead(l,&a[i]);
-//    }
-//    CSlistPrint(l);
+    CSlist * l = CSlistCreate();
+
+    listSetFreeMethod(l,struct_free);
+    struct value_t *a = (struct value_t *)malloc(sizeof(struct value_t )* 10);
+    char *str = "hello";
+    int i ;
+    for(i = 0 ; i < 10;i++){
+        struct value_t *a = (struct value_t *)malloc(sizeof(struct value_t ) );
+        a->str = (char *) malloc(129*1024);
+        strcpy(a->str ,str);
+        a->data = i;
+        l = CSlistAddNodeHead(l,a);
+    }
+    CSlistPrint(l);
+
+    CSlistRelease(l);
+
+
+    //debug
+
+    printf("done it");
+
 }

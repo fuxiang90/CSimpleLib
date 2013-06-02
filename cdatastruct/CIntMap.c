@@ -35,7 +35,7 @@ CIntMap * CIntMapInsert(CIntMap *  map_head,CIntMapData * intmap_node )
     return map_head;
 }
 CIntMap * CIntMapSort(CIntMap *  map_head, CompareDataFunc func ,SwapDataFunc swapfunc)
-{
+ {
 
     CQsort(map_head->arr ,sizeof(struct CIntMapData_t), 0,map_head->len -1 ,func,swapfunc);
 

@@ -3,6 +3,9 @@
 
 #include "CCommon.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 typedef struct CIntArray_t CIntArray;
 struct CIntArray_t {
@@ -32,6 +35,8 @@ void CArrayRelease( CArray * node );
 
 
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CARRAY_H_INCLUDED

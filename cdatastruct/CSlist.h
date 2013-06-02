@@ -1,6 +1,10 @@
 #ifndef CSLIST_H_INCLUDED
 #define CSLIST_H_INCLUDED
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct CSlistNode_t  CSlistNode;
 struct CSlistNode_t {
     struct CSlistNode_t *next;
@@ -11,19 +15,16 @@ struct CSlist_t{
     struct CSlistNode_t * head;
     struct CSlistNode_t * tail;
     unsigned int len;
+    void (*free)(void *ptr);
 
 };
 
-struct value_t{
-
-    int data;
-    char *str;
-};
+struct value_t;
 
 #define CSlistLength(l) ((l)->len)
 #define CSlistFirst(l) ((l)->head)
 #define CSlistLast(l) ((l)->tail)
-
+#define listSetFreeMethod(l,m) ((l)->free = (m))
 
 CSlist *CSlistCreate(void);
 void CSlistRelease(CSlist * l);
@@ -42,5 +43,8 @@ CSlistNode *CSlistIndex(CSlist *l, int index);
 //void listRewindTail(CSlist *l, listIter *li);
 
 void CSlistPrint(CSlist * l);
+#ifdef __cplusplus
+}
+#endif
 
 #endif // CSLIST_H_INCLUDED
