@@ -7,9 +7,12 @@
 
 然后参考了 redis 中list 的实现，和一些开源代码的写法
 
+
+因为这些库在其他工程会用的上，所以函数命名采取首字母大写的方式
+
 ##内容
 * CSlist 单链表
-* CArray 数组
+* CArray 数组 ，可以动态push 数据 ，类似于vector ，用c 的方式
 * CIntMap int-int 映射的一个map 实现，底层用的数组
 * Csort 快速排序的实现
 

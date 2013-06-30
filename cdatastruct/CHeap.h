@@ -14,86 +14,71 @@ extern "C" {
 
 typedef int (heap_compare)(void * ,void *);
 
-#define HEAP_LEFT(nodo) ((nodo)+(nodo)+1)
-#define HEAP_RIGHT(nodo) ((nodo)+(nodo)+2)
-#define HEAP_PARENT(nodo) (((nodo)-1)>>1)
+
 
 #define MIN_CAP  32
 
-typedef struct HeapNode_t HeapNode;
 
- struct HeapNode_t {
+typedef struct HeapNode_t HeapNode;
+struct HeapNode_t {
     double key;
-    void *data;
 };
 
 
 typedef struct CHeap_t CHeap;
 struct CHeap_t {
 
-    void *  value_array; //储存一些地址
+    void * * value_array; //储存一些地址
     int     size;// 当前的大小
     int     cap;//容量
-    heap_compare * compare ;
-    void (*free)(void *ptr);
+    int  (*compare) ( void *a  ,void * b);
+    void (*free)    (void *ptr);
+    void (*swap)   (void *a  ,void * b);
 
 };
-
+#define CHeapSetFreeMethod(l,m) ((l)->free = (m))
+#define CHeapSetCompareMethod(l,m) ((l)->compare = (m))
+#define HEAP_LEFT(nodo) ((nodo)+(nodo)+1)
+#define HEAP_RIGHT(nodo) ((nodo)+(nodo)+2)
+#define HEAP_PARENT(nodo) (((nodo)-1)>>1)
 
 
 CHeap * CHeapCreate(int cap);
 
-CHeap * CHeapInsert(CHeap * head ,HeapNode * node );
 
+
+/*重建一个heap*/
 CHeap * CHeapMake( CHeap * head);
 
-void CHeapInsert(CHeap*, void * value);
+void  CHeapInsert(CHeap*, void * value);
+/*只是往之后插入 但是没有保持堆的性质*/
+void CHeapPush(CHeap * head ,void * value );
 
 void *  CHeapFindMin(const CHeap*);
 
-/*
-	Busca el elemento con la máxima prioridad, o sea el mínimo índice, y lo
-	saca del heap, reestructurando el montículo.
-	O(log n)
-*/
+void CHeapRealse(CHeap* head);
 
-unsigned int CHeapDeleteMin(CHeap*);
+int CHeapIsEmpty(const CHeap*);
 
+int CHeapIsFull(const CHeap*);
 
+void CHeapUp(CHeap *, unsigned int pos );
 
-void CHeapRealse(CHeap*);
-
-int CHeapIsEmpty(const heap*);
-int CHeapIsFull(const heap*);
-/*
-	Reestructura el heap luego de haber cambiado alguna prioridad, pasando a
-	prioridad mas alta (índice mas bajo).
-	El parámetro es el índice del arreglo interno del heap por donde se desea
-	arreglar las posibles violaciones de la propiedad min-heap.
-	Ver node.heap_index.
-
-*/
-void CHeapHeapifUp(CHeap *, void * );
-
-
+void CHeapDown(CHeap * head , unsigned int pos);
 
 void CHeapSift(CHeap * head );
 
-void CHeapNodeSwap(HeapNode * a ,HeapNode * b);
+void CHeapNodeSwap( CHeap * head  , unsigned int a ,unsigned int b);
 
-CHeap * CHeapBuild(CHeap * head , int (*cmpFun)(void * a ,void * b) );
 
-void CHeapPrint(CHeap * head);
+
+static void CHeapPrint(CHeap * head );
 
 static  int cmp(void * a ,void * b) ;
-//HeapNode * HeapNodeCreate(int data_size)
 
 
-struct node_t {
-    double d; //以这个作为排序的根据
-    int value;
 
-};
+
 
 
 
