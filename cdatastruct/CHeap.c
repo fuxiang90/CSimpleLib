@@ -113,10 +113,32 @@ CHeap * CHeapMake( CHeap * head)
 
     return head;
 }
+void *  CHeapGetMin(const CHeap* head)
+{
+    if(head->size != 0 ){
+        return head->value_array[0];
+    }else {
+        return NULL;
+    }
+}
+void CHeapDeleteMin( CHeap* head )
+{
+    if( head->size != 0 ){
+        CHeapNodeSwap(head ,0 , head->size  - 1 );
+        head->size -- ;
+        CHeapDown(head ,0);
+        if(head->free)
+            head->free(head->value_array[head->size -1]);
+        else
+            free(head->value_array[head->size -1]);
+    }
+
+
+}
 void CHeapRealse(CHeap* head)
 {
     int i ;
-    for(int i = 0  ; i < head->size ; i ++){
+    for(i = 0  ; i < head->size ; i ++){
         if(head->free != NULL){
             head->free(head->value_array[i]);
         }else {
@@ -148,7 +170,7 @@ void testHeapMain()
 
     CHeap * head = CHeapCreate(10);
     CHeapSetCompareMethod(head ,cmp);
-    CHeapSetFreeMethod(head ,cmp);
+    CHeapSetFreeMethod(head ,free);
     for(i = 0 ; i < 10 ; i ++){
 
 
@@ -162,7 +184,10 @@ void testHeapMain()
     printf("--------------------------\n");
     CHeapMake(head);
     CHeapPrint(head);
-
+    printf("--------------------------\n");
+    CHeapDeleteMin(head);
+    CHeapPrint(head);
+    printf("--------------------------\n");
     CHeapRealse(head);
 
 

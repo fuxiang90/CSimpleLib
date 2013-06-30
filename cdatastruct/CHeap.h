@@ -54,7 +54,9 @@ void  CHeapInsert(CHeap*, void * value);
 /*只是往之后插入 但是没有保持堆的性质*/
 void CHeapPush(CHeap * head ,void * value );
 
-void *  CHeapFindMin(const CHeap*);
+void *  CHeapGetMin(const CHeap* head);
+
+void CHeapDeleteMin( CHeap* head ) ;
 
 void CHeapRealse(CHeap* head);
 
